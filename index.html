@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 300px;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .message {
+            margin-top: 20px;
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Login</h2>
+    <form id="loginForm" onsubmit="return loginUser(event)">
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <input type="submit" value="Login">
+    </form>
+    <div class="message" id="message"></div>
+</div>
+
+<script>
+    // Hardcoded list of users
+    const users = [
+        { username: "Mostafa", password: "123456789" },
+        { username: "Osama", password: "password123" },
+        { username: "Hesham", password: "123456789@h" }
+    ];
+
+    function loginUser(event) {
+        event.preventDefault(); // Prevent form from submitting and refreshing the page
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const messageDiv = document.getElementById('message');
+
+        // Find the user in the hardcoded users array
+        const user = users.find(user => user.username === username && user.password === password);
+
+        if (user) {
+            // On successful login, redirect to the welcome page
+            window.location.href = `welcome.html?username=${encodeURIComponent(user.username)}`;
+        } else {
+            // Show error message if login failed
+            messageDiv.style.color = "red";
+            messageDiv.innerHTML = "Invalid username or password!";
+        }
+
+        return false; // Stop the form submission
+    }
+</script>
+
+</body>
+</html>
